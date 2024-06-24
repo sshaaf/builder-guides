@@ -1,0 +1,30 @@
+= {lab_name}
+
+++++
+<br>
+<h4><i>Red Hat AI Development Roadshow - AI Model Builder Track</i></h4>
+<br>
+<style>
+  .nav-container, .pagination, .toolbar {
+    display: none !important;
+  }
+  .doc {
+    max-width: 70rem !important;
+  }
+</style>
+++++
+
+Meet Bob, a senior developer at Parasol Insurance who was recently promoted into their AI R&D group and has been tasked with customizing one of the open source models provided by IBM+Red Hat, using proprietary corporate data, for use by various business units. Bob knows what it means to train/fine tune models, do basic inference, and apply RAG patterns to solve problems, but he doesn’t get the lower-level models and math behind machine learning (nor does he care to learn) and doesn’t consider himself a data scientist.
+
+
+== Get started
+
+Modules are provisioned on demand by you by using the *Workshop Deployer*.
+
+Your access details to the lab:
+
+* Access *Workshop Deployer* by  https://workshop-deployer.{openshift_subdomain}[clicking here^, window="workshopdeployer"]
+* Username: *{user_name}*
+* Password: *{user_password}*
+
+Before diving into a particular module, we recommend that you go through the workshop introduction module, to explore the technical and functional environment for this workshop. *Go ahead! Choose your adventure!*

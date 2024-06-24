@@ -1,0 +1,6 @@
+* xref:module-discovery.adoc[Discovery]
+* xref:module-ilab.adoc[InstructLAB]
+* xref:module-prompt.adoc[Prompting Basics]
+* xref:module-rhoai.adoc[Sharing customized models in OpenShift AI]
+* xref:module-observe.adoc[Observing models]
+* xref:module-update.adoc[Applying Updates]
