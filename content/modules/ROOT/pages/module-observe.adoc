@@ -1,4 +1,4 @@
-= Incorporating Gen AI into existing apps
+= Observing models
 :imagesdir: ../assets/images
 
 ++++

@@ -1,4 +1,4 @@
-= Migration with Konveyor AI
+= InstructLAB
 :imagesdir: ../assets/images
 
 ++++

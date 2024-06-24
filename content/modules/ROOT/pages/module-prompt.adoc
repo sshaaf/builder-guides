@@ -1,4 +1,4 @@
-= Model Testing
+= Prompting Basics
 :imagesdir: ../assets/images
 
 ++++

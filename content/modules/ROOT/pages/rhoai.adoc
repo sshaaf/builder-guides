@@ -1,4 +1,4 @@
-= Private Docs (RAG/Tools)
+= Sharing customized models in OpenShift AI
 :imagesdir: ../assets/images
 
 ++++
