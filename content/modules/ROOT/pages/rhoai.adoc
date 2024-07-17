@@ -15,7 +15,7 @@
   .nav-container, .pagination, .toolbar {
     display: none !important;
   }
-  .doc {    
+  .doc {
     max-width: 70rem !important;
   }
 </style>
@@ -23,7 +23,7 @@
 
 == Goals of this lab
 
-The goal of this lab is to
+Parasol is likely to create many different customized models for its business units, so effective ways to share this to different teams is important. This exercise will cover best practices for storing custom models securely and efficiently, deploying them using OpenShift AI, and verifying their functionality in a real-world environment. You will be guided through the process of saving your fine-tuned models in a way that ensures easy access and scalability, followed by detailed instructions on deploying these models within OpenShift AI. Finally, you will learn how to perform comprehensive verification checks to confirm that your models are operating as expected, ensuring they meet Parasol's high standards for reliability and performance. This hands-on session is designed to equip you with the knowledge and skills necessary to seamlessly transition from model fine-tuning to deployment and validation.
 
 == 1. Run podman desktop
 
