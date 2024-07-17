@@ -15,7 +15,7 @@
   .nav-container, .pagination, .toolbar {
     display: none !important;
   }
-  .doc {    
+  .doc {
     max-width: 70rem !important;
   }
 </style>
@@ -23,8 +23,9 @@
 
 == Goals of this lab
 
-The goal of this lab is to
+Parasol has had mixed success in the past with generative AI, and believes that better prompts can improve their results. As an AI model builder, it is your job to build in the prompts that will be combined with user input to query the custom Parasol models.
 
+In this exercise you as an AI model builder will delve into the art of crafting effective prompts to improve the performance of Parasol's customized generative AI models. Recognizing the importance of precise and well-structured prompts, this exercise aims to equip you with the best practices to optimize user interactions with custom AI models. You'll start by initiating the "Prompt Best Practices" recipe on Podman Desktop, configured with a tailored model. From there, you'll open the application frontend in your browser and experiment with various prompt types, including zero-shot, few-shot, and chain-of-thought prompts, using examples to showcase the reasoning capabilities of the language model. Additionally, you'll use these prompts to generate emails that meet specific content, formatting, and tone requirements. This hands-on exercise will empower you to refine your prompting techniques, ultimately enhancing the overall effectiveness of Parasol's AI initiatives.
 == 1. Run podman desktop
 
 Introduction to gen AI + discover and experiment with gen AI models and AI applications on the local desktop, in an inner loop

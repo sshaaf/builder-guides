@@ -15,7 +15,7 @@
   .nav-container, .pagination, .toolbar {
     display: none !important;
   }
-  .doc {    
+  .doc {
     max-width: 70rem !important;
   }
 </style>
@@ -23,7 +23,13 @@
 
 == Goals of this lab
 
-The goal of this lab is to
+Parasol want to leverage “Private AI” to gain a competitive edge with its use of AI and its corporate data. It does not want to share this data, so the AI model and any data used must remain in-house, not on any cloud servers. In this exercise, you will learn how to fine-tune a base model using InstructLab, infusing Parasol-specific knowledge into the model for the benefit of Parasol's internal development teams. The exercise will involve forking a private copy of the taxonomy repo from the InstructLab project to add Parasol skills and knowledge, configuring InstructLab to use the Parasol Taxonomy, and adding new skills and knowledge into the taxonomy. You will then generate synthetic training data, test it, and re-train the LLM with this new data. Next, you will interact with the re-trained LLM to observe the results, and understand the integration of pre-trained models with specialized knowledge. Finally, you will load the model for use in Podman Desktop and OpenShift AI, ensuring a seamless workflow from customization to deployment. This hands-on session will empower you to enhance Parasol's AI capabilities for its staff. A model will be trained to assist Parasol's customer service associates in 3 areas:
+
+* Creation of an email about a product
+* Information about policy, type of products
+* Local government regulations that may affect policies
+
+This information can be retrieved via prompts and will aid users in asking analytical and compliance questions.
 
 == 1. Run podman desktop
 
