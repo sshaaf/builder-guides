@@ -18,12 +18,7 @@
 In this exercise, we'll focus on the crucial aspect of monitoring AI models once they are deployed in production. Observing and understanding the performance of AI models in real-world scenarios is essential for ensuring their effectiveness and reliability, especially in the context of Parasol's business use cases. This workshop will guide you through confirming that the custom Parasol fine-tuned model is functioning correctly using a simple prompt application. You will then run a load generation workload and use OpenShift AI to observe key performance metrics, including using Prometheus queries. Additionally, you will deploy a smaller, quantized version of the trained model, repeat the workload, and observe performance differences. This hands-on exercise will highlight the importance of continuous monitoring and performance evaluation to maintain high standards of AI model deployment at Parasol Insurance.
 
 
-== 1. Run podman desktop
-
-Introduction to gen AI + discover and experiment with gen AI models and AI applications on the local desktop, in an inner loop
-
-image::observe/redhat-openshift-ai.png[]
-
+== 1. Serve the customer Parasol fine-tuned model and test
 
 == 1.1. TBD
 
