@@ -1,4 +1,4 @@
-= InstructLAB
+= InstructLab
 :imagesdir: ../assets/images
 
 ++++
@@ -13,61 +13,178 @@
 </script>
 ++++
 
+== The Private AI Journey for Parasol Insurance
+
+As Parasol Insurance embraces the era of AI, we face a unique challenge: leveraging cutting-edge AI technology while maintaining strict control over our proprietary data and processes. This journey requires us to develop in-house AI capabilities that are as powerful as they are secure.
+
+Our path forward involves three critical steps:
+
+. Knowledge Infusion
+* How do we incorporate Parasol's unique insurance expertise into AI models?
+. Model Customization
+* How can we fine-tune AI to address Parasol-specific scenarios and regulations?
+. Secure Deployment
+* What's the best way to integrate AI into our workflow while keeping data in-house?
+
+// image::instructlab/parasol-ai-journey.png[Parasol's Private AI Journey]
+
 == Goals of this lab
 
-Parasol want to leverage “Private AI” to gain a competitive edge with its use of AI and its corporate data. It does not want to share this data, so the AI model and any data used must remain in-house, not on any cloud servers. In this exercise, you will learn how to fine-tune a base model using InstructLab, infusing Parasol-specific knowledge into the model for the benefit of Parasol's internal development teams. The exercise will involve forking a private copy of the taxonomy repo from the InstructLab project to add Parasol skills and knowledge, configuring InstructLab to use the Parasol Taxonomy, and adding new skills and knowledge into the taxonomy. You will then generate synthetic training data, test it, and re-train the LLM with this new data. Next, you will interact with the re-trained LLM to observe the results, and understand the integration of pre-trained models with specialized knowledge. Finally, you will load the model for use in Podman Desktop and OpenShift AI, ensuring a seamless workflow from customization to deployment. This hands-on session will empower you to enhance Parasol's AI capabilities for its staff. A model will be trained to assist Parasol's customer service associates in 3 areas:
+In this hands-on session, you'll dive into the world of private AI development for Parasol Insurance. By the end of this lab, you will:
 
-* Creation of an email about a product
-* Information about policy, type of products
-* Local government regulations that may affect policies
+* *Understand* the fundamentals of InstructLab and its role in creating customized, private AI models.
+* *Create* a Parasol-specific knowledge base by modifying the InstructLab taxonomy.
+* *Generate* synthetic training data that reflects Parasol's unique insurance scenarios.
+* *Train* a Large Language Model (LLM) with Parasol's proprietary information.
+* *Interact* with the newly trained model to verify its insurance-specific capabilities.
+* *Deploy* the customized model within Parasol's secure infrastructure using Podman Desktop and OpenShift AI.
 
-This information can be retrieved via prompts and will aid users in asking analytical and compliance questions.
+This lab will equip you to enhance Parasol's AI capabilities in three key areas:
 
-== 1. Run podman desktop
+1. Generating product-specific email templates
+2. Providing comprehensive policy and product information
+3. Offering insights on relevant local regulations
 
-Introduction to gen AI + discover and experiment with gen AI models and AI applications on the local desktop, in an inner loop
+By mastering these skills, you'll be at the forefront of Parasol's AI innovation, enabling more efficient, accurate, and compliant customer service.
 
-image::ilab/redhat-openshift-ai.png[]
+== 1. Get Started with InstructLab
+
+=== 1.1. What is InstructLab
+
+InstructLab is an open-source project designed to enhance large language models (LLMs) for use in generative AI applications. It provides a novel approach to model alignment and fine-tuning, allowing developers and domain experts to add new knowledge and skills to pre-trained models with minimal data and computational resources. Key features of InstructLab include:
+
+* A taxonomy-driven approach to curating training data
+* Large-scale synthetic data generation
+* Iterative, large-scale alignment tuning
+
+InstructLab is particularly useful for organizations like Parasol that want to leverage private AI and keep their data in-house while still benefiting from state-of-the-art language models.
+
+=== 1.2. Access Virtual Environment
+
+To begin working with InstructLab, you'll need to access the provided virtual environment. This environment comes pre-configured with all necessary tools and dependencies.
+
+Open your web browser and navigate to the provided URL for the virtual environment.
+Log in using the credentials provided to you at the start of this lab.
+Once logged in, you'll see a desktop environment with Visual Studio Code and a terminal already open.
+
+== 2. Hands on with AI Model Fine-tuning
+
+=== 2.1. Starting from Example Data in VSCode
+
+In this section, we'll walk through the process of adding new knowledge to the model using the InstructLab taxonomy.
+
+1. Open Visual Studio Code in your virtual environment.
+2. Navigate to the `taxonomy` directory in the *InstructLab* project.
+3. Open the `knowledge/parasol/qna.yaml` file in the editor.
+
+This file contains a set of example questions and answers that will be used to fine-tune the model. Let's take a look at the contents of this file:
+
+[source,yaml]
+----
+- question: "What are the different types of insurance policies offered by Parasol?"
+  answer: "Parasol offers a wide range of insurance policies, including life insurance, health insurance, auto insurance, and home insurance."
+----
+
+This is a simple example of a question and answer pair that will be used to train the model. You can add more questions and answers to this file to enhance the model's knowledge.
+
+=== 2.2. Generating Synthetic Training Data
+
+Now that we've added some initial data, let's use InstructLab to generate synthetic training data.
+
+. Open a terminal in Visual Studio Code.
+. Run the following command to generate synthetic training data:
++
+[source,bash]
+----
+cd ~/instructlab
+----
+. Activate the Python virtual environment:
++
+[source,bash]
+----
+source venv/bin/activate
+----
+. Run the data generation command:
++
+[source,bash]
+----
+ilab data generate
+----
+
+This process may take some time, depending on the amount of data and the computational resources available. The synthetic data will be created in the `generated` directory.
+
+=== 2.3. Training the Model with New Data
+
+With our synthetic data generated, we can now train the model to incorporate this new knowledge.
+
+. In the terminal, ensure you're still in the InstructLab directory and the virtual environment is activated.
+. Run the training command:
++
+[source,bash]
+----
+ilab model train
+----
+
+This process will take some time, potentially several hours depending on your hardware. The command will output progress information as it trains the model.
+
+=== 2.4. Interacting with the Model
+
+Once training is complete, we can interact with the newly fine-tuned model to test its capabilities.
+
+. In the terminal, start the model server:
++
+[source,bash]
+----
+ilab model serve --model-path models/ggml-model-f16.gguf
+----
+. Open a new terminal window, navigate to the InstructLab directory, and activate the virtual environment.
+. Start a chat session with the model:
++
+[source,bash]
+----
+ilab model chat
+----
+. Test the model with questions related to the knowledge we added, for example:
++
+[source]
+----
+What types of insurance does Parasol offer?
+----
++
+[source]
+----
+Can you explain Parasol's process for handling auto insurance claims?
+----
+
+Observe how the model incorporates the new knowledge into its responses.
+
+== 4. Integrating the Model in the Application Development Workflow
+
+=== 4.1 Loading the Model in Podman AI Lab
+
+Now that we have a fine-tuned model, we can integrate it into our development workflow using Podman Desktop's AI Lab
+
+. Open Podman Desktop from your virtual environment.
+. On the left-hand menu, click on "AI Lab" icon to access the AI Lab environment.
+. Click on "Models" to view the available models.
+. Click on "Import Model" and select the model file we trained earlier.
+. Once the model is imported, you can start it as a service and integrate it in your applications.
 
 
-== 1.1. TBD
+// Table of Contents
 
-=== 1.1.1. TBD
-
-== 2. Start a playground, chat with it
-
-== 3. Kill playground, try text summarization recipe, upload claim PDF, view summarization
-
-== 4. Open summarization app (python) in vscode, inspect code (briefly)
-
-== 5. Change the prompt, restart, and observe changes.
-
-== Conclusion
-
-We hope you have enjoyed this module!
-
-Here is a quick summary of what we have learned:
-
-- TBD
-- TBD
-- TBD
-
-Preface
-
-Goals of Lab
-
-1. Get Started with InstructLab [Cedric/Shaaf]
-1.1. What is InstructLab [Cedric/Shaaf]
-1.2. Access Virtual Environment [Cedric/Shaaf]
-2. Hands on with AI Model Fine-tuning [Cedric]
-2.1. Starting from Example Data in VSCode (ex. 5 instructions) [Cedric]
-2.2. Generating Synthetic Training Data [Cedric]
-2.3. Training the Model with New Data [Cedric]
-2.4. Interacting with the Model [Cedric]
-3. Model Training for the Insurance Organization [Shaaf]
-3.1. Viewing the Synthetic Data Generated [Shaaf]
-3.2. Training the Model (15 mins) [Shaaf]
-3.3. Interacting with the Model [Shaaf]
-4. Integrating the Model in the Application Development Workflow [Cedric]
-4.1 Loading the Model in Podman Desktop [Cedric]
-4.2 Sharing the Model beyond the local environment [Shaaf]
+// 1. Get Started with InstructLab [Cedric/Shaaf]
+// 1.1. What is InstructLab [Cedric/Shaaf]
+// 1.2. Access Virtual Environment [Cedric/Shaaf]
+// 2. Hands on with AI Model Fine-tuning [Cedric]
+// 2.1. Starting from Example Data in VSCode (ex. 5 instructions) [Cedric]
+// 2.2. Generating Synthetic Training Data [Cedric]
+// 2.3. Training the Model with New Data [Cedric]
+// 2.4. Interacting with the Model [Cedric]
+// 3. Model Training for the Insurance Organization [Shaaf]
+// 3.1. Viewing the Synthetic Data Generated [Shaaf]
+// 3.2. Training the Model (15 mins) [Shaaf]
+// 3.3. Interacting with the Model [Shaaf]
+// 4. Integrating the Model in the Application Development Workflow [Cedric]
+// 4.1 Loading the Model in Podman Desktop [Cedric]
+// 4.2 Sharing the Model beyond the local environment [Shaaf]
