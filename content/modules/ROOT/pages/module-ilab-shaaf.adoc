@@ -1,5 +1,6 @@
 = InstructLAB
 :imagesdir: ../assets/images
+:sectnums:
 
 ++++
 <!-- Google tag (gtag.js) -->
@@ -23,24 +24,24 @@ Parasol want to leverage “Private AI” to gain a competitive edge with its us
 
 This information can be retrieved via prompts and will aid users in asking analytical and compliance questions.
 
-== 1. Run podman desktop
+== Run podman desktop
 
 Introduction to gen AI + discover and experiment with gen AI models and AI applications on the local desktop, in an inner loop
 
 image::ilab/redhat-openshift-ai.png[]
 
 
-== 1.1. TBD
+== TBD
 
-=== 1.1.1. TBD
+=== TBD
 
-== 2. Start a playground, chat with it
+== Start a playground, chat with it
 
-== 3. Kill playground, try text summarization recipe, upload claim PDF, view summarization
+== Kill playground, try text summarization recipe, upload claim PDF, view summarization
 
-== 4. Open summarization app (python) in vscode, inspect code (briefly)
+== Open summarization app (python) in vscode, inspect code (briefly)
 
-== 5. Change the prompt, restart, and observe changes.
+== Change the prompt, restart, and observe changes.
 
 == Conclusion
 

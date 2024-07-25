@@ -1,5 +1,6 @@
 = Applying Updates
 :imagesdir: ../assets/images
+:sectnums:
 
 ++++
 <!-- Google tag (gtag.js) -->
@@ -17,24 +18,23 @@
 
 As an AI model builder at Parasol, you are responsible for the rollout of new versions of AI models when updates are needed to address quality or performance issues.. In this exercise, we will emphasize the importance of regularly updating AI models in production to ensure they remain effective, accurate, and aligned with Parasol’s evolving business needs. Regular updates help mitigate model drift, incorporate new data, and enhance functionality. This exercise will teach you how to roll out these updates efficiently and safely using OpenShift AI. You will start by deploying the original trained Parasol model, then deploying a different, updated model. By configuring OpenShift AI for a canary rollout via KServe, you will direct 10% of the traffic to the new model while keeping 90% on the old, allowing for gradual integration and load balancing. You'll repeat prompts to observe the load distribution, then shift traffic entirely to the new model. Finally, you'll confirm the new model's deployment and deactivate the old one. This hands-on practice will equip you with the skills to manage model updates seamlessly, ensuring minimal disruption and maximum performance.
 
-== 1. Run podman desktop
+== Run podman desktop
 
 Introduction to gen AI + discover and experiment with gen AI models and AI applications on the local desktop, in an inner loop
 
-image::update/redhat-openshift-ai.png[]
+image::discovery/redhat-openshift-ai.png[]
 
+== TBD
 
-== 1.1. TBD
+=== TBD
 
-=== 1.1.1. TBD
+== Start a playground, chat with it
 
-== 2. Start a playground, chat with it
+== Kill playground, try text summarization recipe, upload claim PDF, view summarization
 
-== 3. Kill playground, try text summarization recipe, upload claim PDF, view summarization
+== Open summarization app (python) in vscode, inspect code (briefly)
 
-== 4. Open summarization app (python) in vscode, inspect code (briefly)
-
-== 5. Change the prompt, restart, and observe changes.
+== Change the prompt, restart, and observe changes.
 
 == Conclusion
 

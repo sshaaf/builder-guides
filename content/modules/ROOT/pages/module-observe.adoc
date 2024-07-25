@@ -1,5 +1,6 @@
 = Observing models
 :imagesdir: ../assets/images
+:sectnums:
 
 ++++
 <!-- Google tag (gtag.js) -->
@@ -17,20 +18,23 @@
 
 In this exercise, we'll focus on the crucial aspect of monitoring AI models once they are deployed in production. Observing and understanding the performance of AI models in real-world scenarios is essential for ensuring their effectiveness and reliability, especially in the context of Parasol's business use cases. This workshop will guide you through confirming that the custom Parasol fine-tuned model is functioning correctly using a simple prompt application. You will then run a load generation workload and use OpenShift AI to observe key performance metrics, including using Prometheus queries. Additionally, you will deploy a smaller, quantized version of the trained model, repeat the workload, and observe performance differences. This hands-on exercise will highlight the importance of continuous monitoring and performance evaluation to maintain high standards of AI model deployment at Parasol Insurance.
 
+== Run podman desktop
 
-== 1. Serve the customer Parasol fine-tuned model and test
+Introduction to gen AI + discover and experiment with gen AI models and AI applications on the local desktop, in an inner loop
 
-== 1.1. TBD
+image::discovery/redhat-openshift-ai.png[]
 
-=== 1.1.1. TBD
+== TBD
 
-== 2. Start a playground, chat with it
+=== TBD
 
-== 3. Kill playground, try text summarization recipe, upload claim PDF, view summarization
+== Start a playground, chat with it
 
-== 4. Open summarization app (python) in vscode, inspect code (briefly)
+== Kill playground, try text summarization recipe, upload claim PDF, view summarization
 
-== 5. Change the prompt, restart, and observe changes.
+== Open summarization app (python) in vscode, inspect code (briefly)
+
+== Change the prompt, restart, and observe changes.
 
 == Conclusion
 
