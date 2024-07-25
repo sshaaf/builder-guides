@@ -24,7 +24,6 @@ Introduction to gen AI + discover and experiment with gen AI models and AI appli
 
 image::discovery/redhat-openshift-ai.png[]
 
-
 == TBD
 
 === TBD
