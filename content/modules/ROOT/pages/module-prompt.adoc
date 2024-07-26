@@ -152,12 +152,76 @@ Try downloading and submitting your own documents to experiment with performance
 
 Keep in mind this is an insecure business server and confidential data should be avoided, along with offensive material.  Also, keep in mind maximum length guidance as provided in the UI.
 
-== 4. Write a Use Case Prompt for Later Use with an Insurance Business Service
+== 4. Solve a Business Problem with a Prompt!
 
+=== 4.1. Use Case and Requirements
 
+Customers frequently reach out to our customer service team to discuss their insurance claims.  These emails are very diverse and, while we can easily route them to the claims team, determining how to process from there is time consuming manual labor that Parasol Insurance would like to repurpose elsewhere within the company.  This is where you come in - Parasol Insurance leadership is eager to pilot Generative AI in the context of claims email routing.  It hopes this automation will allow it to move these claims support resources to the claims analysis team, who is getting behind in their processes and causing customer impacting delays.
+
+As the Model Builder, you have already completed training of a robust LLM that is are of Parasol Insurance's business rules.  We will use this model to analyze customer emails and determine how to best handle the customer inquiry.  Architecturally, this logic will be invoked as a simple business service written in Java that generates a simple response that guides routing.  The robust analysis must be performed by the LLM and will require solid prompt to produce quality results.
+
+Input/Output Specification:
+* LLM Input:  "customer email body"
+* LLM Output: { "claimStatus": "RESPONSE" } where RESPONSE is either NEW, EXISTING, UNRELATED, or UNKNOWN
+
+Requirements:
+* Determine if the customer email is notifying the company of a new insurance claim or asking about an existing one.
+* If the email was misrouted to the claim team for some reason, respond with UNRELATED
+* Non-business emails should be assigned UNKNOWN
+
+=== 4.2. Prepare for Prompt Experimentation
+
+Open Podman Desktop AI Lab
+Click on AI Lab
+Click on Playgrounds
+Click on New Playground
+Choose the Parasol Insurance model 
+Click the Create playbround button
+Set the Max Tokens to a definitive value - something smaller like 100-200 tokens
+
+=== 4.3. Write a prompt!
+
+Think about what we've learned so far with LLMs and ground yourself in clear communication vs the power of AI.  How would you communicate this use case to a new employee with no background at all in insurance or customer service?  How would you communicate what good looks like in a way that is descriptive of a pattern vs rigid rules that must be followed?
+
+I recommend that you start with a text editor in the shared desktop and then paste updates into Podman Desktop, as this will be an interative process.
+A hint - the user prompt will always be the customer email with no other surrounding questions or text.  This means your system prompt will contain all of the instructions for this exercise.  Each change to a system prompt requires a new playground session so pasting this in will help simplify the continuous improvement process.
+
+You can write your own sample emails and paste them into the user prompt text box or you can view them in the Parsol Insurance App.  For the latter, open the web application, click on Claims, select any of the claims in the list and emails are included in the Document tab.
+
+If you run into challenges while drafting the prompt, ask your instructor for assistance.
+
+If you finish this exercise early, can you enhance the process with the following:
+* If the response is NEW, is there a customer provided policy number that you can include in the response?  If not, can you return an error message with the code saying that more information is needed?
+* If the response is EXISTING, is the claim number provided?  If not, can you return an error message with the EXISTING response?
+* Enrich the JSON with the additional data fields.
 
 == 5. Update the Parasol Insurance Java App w/New Prompt
 
+=== 5.1. Objectives
+
+Now that you've developed a working prompt that can help satisfy leadership objectives with its first Generative AI initiative, you need to incorporate the logic into the Parasol Insurance systems and applications.  For this exercise, that involves updating a REST service that provides routing guidance based on a customer email.  You will update this service to include the prompt and then validate its response.
+
+=== 5.2. Working Prompt
+
+You are a customer service expert in the claims management processes at Parasol Insurance. 
+
+You are the first point of contact for customer emails involving insurance claims. These emails always fall into one of the following categories - 1.) New Claim , 2.) Status Updates or Additional Details Regarding an Existing Claim, or 3.) Unrelated to Insurance Claims. 
+
+Emails that describe a new accident or discuss filing a new claim are always NEW claims. 
+ 
+Emails that are asking for a status update, voicing concerns about taking too long to process, or providing additional details about an accident that were not previously provided are always EXISTING claims. 
+
+Emails that have nothing to do with insurance or claims are always UNRELATED. 
+
+Any email that cannot be categorized into NEW, EXISTING, or UNRELATED must be categorized as UNKNOWN. 
+
+You will be provided the email body in user prompt and will review it to determine which category to which it belongs. You MUST ALWAYS respond with only one of the following words - NEW, EXISTING, UNRELATED, or UNKNOWN. 
+
+Provide this response in JSON format in the following structure: { "claimStatus": "RESPONSE" } where "RESPONSE" contains NEW, EXISTING, UNRELATED, or UNKNOWN. 
+
+=== 5.3. Integrate Prompt with Application
+
+TODO
 
 
 == Conclusion
@@ -166,6 +230,6 @@ We hope you have enjoyed this module!
 
 Here is a quick summary of what we have learned:
 
-- TBD
-- TBD
-- TBD
+- Learned how to use Podman Desktop with AI Lab to chat with a trained model
+- Explored common use cases for gaining value from an LLM, such as agents, summarization and content analysis
+- Developed a new prompt from scratch in support of a new business use case
