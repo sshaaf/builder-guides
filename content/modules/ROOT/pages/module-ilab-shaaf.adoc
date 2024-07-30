@@ -14,61 +14,145 @@
 </script>
 ++++
 
-== Goals of this lab
+== 3. Adding knowledge to the model
 
-Parasol want to leverage “Private AI” to gain a competitive edge with its use of AI and its corporate data. It does not want to share this data, so the AI model and any data used must remain in-house, not on any cloud servers. In this exercise, you will learn how to fine-tune a base model using InstructLab, infusing Parasol-specific knowledge into the model for the benefit of Parasol's internal development teams. The exercise will involve forking a private copy of the taxonomy repo from the InstructLab project to add Parasol skills and knowledge, configuring InstructLab to use the Parasol Taxonomy, and adding new skills and knowledge into the taxonomy. You will then generate synthetic training data, test it, and re-train the LLM with this new data. Next, you will interact with the re-trained LLM to observe the results, and understand the integration of pre-trained models with specialized knowledge. Finally, you will load the model for use in Podman Desktop and OpenShift AI, ensuring a seamless workflow from customization to deployment. This hands-on session will empower you to enhance Parasol's AI capabilities for its staff. A model will be trained to assist Parasol's customer service associates in 3 areas:
+In the previous section, we learned the basics of InstructLab by adding knowledge, generating synthetic data, and finally, training the model. This gives us the basic understanding. In this section, we will build upon that and delve further into the biggest insurance company in North America, Parasol, which has the most extensive customer base. Parasol Insurance gets many requests to process claims, questions about different products, etc. But these requests are not just internal but also external. Parasol Insurance's primary importance is ensuring that its staff is capable of handling such requests and has access to this information through a single interface rather than going through multiple systems for scrapping through documents and internal portal pages. To this effect, you have been tasked to add knowledge that will aid the following use cases. 
 
-* Creation of an email about a product
-* Information about policy, type of products
-* Local government regulations that may affect policies
+1. Products and coverage
+2. Basic knowledge of the Insurance rules
+3. Responses to general claim questions and remedies.
 
-This information can be retrieved via prompts and will aid users in asking analytical and compliance questions.
+As part of this process, your role is crucial. You must first add a knowledge domain to the LLM. We will follow a procedure similar to the one in the previous section and add more comprehensive knowledge for the use cases. 
 
-== Run podman desktop
+`git`. Let's go ahead and pull that knowledge before we get into the training process.
+Assuming that you have VSCode already open. Open a new Terminal window by clicking
 
-Introduction to gen AI + discover and experiment with gen AI models and AI applications on the local desktop, in an inner loop
+image::ilab/vscode-new-terminal-menu.png[Open new VSCode terminal]
 
-image::ilab/redhat-openshift-ai.png[]
+Run the following commands into the terminal. 
+[.console-input]
+[source,adoc]
+----
+cd taxonomy
+git remote -v
+----
 
+In the above commands we first change directory to the taxonomy, this is where InstructLab has installed the default taxonomy which is also available on https://github.com/instructlab/taxonomy.git[*github*^]. The second command shows us the remote git repository we have configured on our local machine, which is also the default. You should be able to see the following output from the above commands.
 
-== TBD
+[.console-output]
+[source,adoc]
+----
+origin	https://github.com/instructlab/taxonomy.git (fetch)
+origin	https://github.com/instructlab/taxonomy.git (push)
+----
 
-=== TBD
+Next we want to be able to add our own private Parasol taxonomy and train our models with it. To do that we will configure instructLab taxonomy with the following two commands. The command will configure the remote repository, and the second command prints the git repository configuration.
 
-== Start a playground, chat with it
+[.console-input]
+[source,adoc]
+----
+git remote add parasol https://github.com/rh-rad-ai-roadshow/parasol-taxonomy.git
+git remote -v
+----
 
-== Kill playground, try text summarization recipe, upload claim PDF, view summarization
+The command output should look as follows. And this means we have now successfully configured our private taxonomy repository.
 
-== Open summarization app (python) in vscode, inspect code (briefly)
+[.console-output]
+[source,adoc]
+----
+origin	https://github.com/instructlab/taxonomy.git (fetch)
+origin	https://github.com/instructlab/taxonomy.git (push)
+parasol	https://github.com/rh-rad-ai-roadshow/parasol-taxonomy.git (fetch)
+parasol	https://github.com/rh-rad-ai-roadshow/parasol-taxonomy.git (push)
+----
 
-== Change the prompt, restart, and observe changes.
+Let's go ahead and pull the changes.
+[.console-input]
+[source,adoc]
+----
+git pull parasol main
+----
+The commad should show an output similar to the following image. It shows the different taxonomy files that are additional to the current default taxonomy. 
 
-== Conclusion
+image::ilab/terminal-pull-parasol-taxonomy.png[Parasol taxonomy pull git]
 
-We hope you have enjoyed this module!
+Lets take a look at the files that have been pulled in from our private Parasol Insurance taxonomy. You will be able to find these files under `knowledge > economy > finance > insurance` as shown in the following screenshot.
 
-Here is a quick summary of what we have learned:
+image::ilab/parasol-taxonomy-structure.png[InstructLab taxonomy structure]
 
-- TBD
-- TBD
-- TBD
+Knowledge consists of data and facts and is backed by documents. When you create knowledge for a model, you're giving it additional data to more accurately answer questions.
 
-Preface
+Knowledge contributions in this project contain a few things.
 
-Goals of Lab
+- A file in a https://github.com/rh-rad-ai-roadshow/parasol_knowledge[git repository] that holds your information. For example, these repositories can include markdown versions of information on: Parasol products, insurance domain knowledge, claims processing etc.
+- A `qna.yaml` file that asks and answers questions about the information in the git repository.
+- An `attribution.txt` that includes the sources for the information used in the qna.yaml.
 
-1. Get Started with InstructLab [Cedric/Shaaf]
-1.1. What is InstructLab [Cedric/Shaaf]
-1.2. Access Virtual Environment [Cedric/Shaaf]
-2. Hands on with AI Model Fine-tuning [Cedric]
-2.1. Starting from Example Data in VSCode (ex. 5 instructions) [Cedric]
-2.2. Generating Synthetic Training Data [Cedric]
-2.3. Training the Model with New Data [Cedric]
-2.4. Interacting with the Model [Cedric]
-3. Model Training for the Insurance Organization [Shaaf]
-3.1. Viewing the Synthetic Data Generated [Shaaf]
-3.2. Training the Model (15 mins) [Shaaf]
-3.3. Interacting with the Model [Shaaf]
-4. Integrating the Model in the Application Development Workflow [Cedric]
-4.1 Loading the Model in Podman Desktop [Cedric]
-4.2 Sharing the Model beyond the local environment [Shaaf]
+LLMs have inherent limitations that make certain tasks extremely difficult, like doing math problems. They're great at other tasks, like creative writing. And they could be better at things like logical reasoning.
+
+An LLM with knowledge helps it create a basis of information that it can learn from, then you can teach it to use this knowledge via the qna.yaml files. In our case we want the LLM to learn more about Parasol Insurance. 
+
+A knowledge file looks as follows: 
+
+[.console-input]
+[source,yaml]
+----
+version: 2
+task_description: "Teach a model more details about Parasol Insurance"
+created_by: sshaaf
+domain: insurance
+seed_examples:
+  - question: What is class imbalance in the context of Parasol insurance claims datasets?
+    answer: |
+      Class imbalance refers to the situation where the number of non-claims instances far exceeds
+      that of actual claims, posing challenges for predictive modeling.
+
+document:
+  repo: https://github.com/sshaaf/parasol_knowledge.git
+  commit: b87677d
+  patterns:
+    - Insurance_claims_data.md
+----
+
+Each `qna.yaml` file requires a minimum of five question-answer pairs. The `qna.yaml` format must include the following fields:
+
+- `version`: The value must be the number 2.
+- `task_description`: An optional description of the knowledge.
+- `created_by`: Your GitHub username.
+- `domain`: Category of the knowledge.
+- `seed_examples`: Five or more examples sourced from the provided knowledge documents.
+  - `question`: A question for the model. This key is required.
+  - `answer`: The desired response from the model. This key is required.
+- `document`: The source of your knowledge contribution.
+  - `repo`: The URL to your repository that holds your knowledge markdown files.
+  - `commit`: The SHA of the commit in your repository with your knowledge markdown files.
+  - `patterns`: A list of glob patterns specifying the markdown files in your repository. Any glob pattern that starts with `*`, such as `*.md`, must be quoted due to YAML rules. For example, `"*.md"`. In our case we have placed all the knowledge documents in the https://github.com/rh-rad-ai-roadshow/parasol_knowledge[parasol-knoledge] repository.
+
+Let’s now examine the taxonomy knowledge files for Parasol Insurance. Open each file listed and observe the questions.
+
+- **Driving age**: 
+These are question-and-answer pairs for driving rules in Alaska and New Hampshire. One document file has been added to these questions so that LLM has more context. You can inspect this document in the Parasol Knowledge repository https://github.com/rh-rad-ai-roadshow/parasol_knowledge/blob/main/teen_driving_rules.md[here].
+
+image::ilab/parasol-knowledge-taxonomy-drivingage.png[InstructLab taxonomy structure]
+
+- **Parasol claims data**
+Here, we are adding information about the different terms and glossary for a claim specific to Parasol Insurance and its databases. A good example is `Policy ID,` a unique ID for policy in our database systems. The LLM does not know about this. By adding this, we can ensure that once a claims agent or an application asks about a policy ID, the LLM can give reasonable answers and suggestions. In our next section, we will learn more about analyzing data and craft prompts in more detail.
+You can inspect the addtional knowledge document in the Parasol Knowledge repository https://github.com/rh-rad-ai-roadshow/parasol_knowledge/blob/main/Insurance_claims_data.md[here].
+
+image::ilab/parasol-knowledge-taxonomy-claimsdata.png[InstructLab taxonomy structure]
+
+- **Parasol insurance**
+Here, we are adding some basic information about Parasol Insurance, an overview of product details. This will enable the LLM to give answers on a high level about the different offerings, fomulate a context about Parasol Insurance, history etc. 
+You can inspect the addtional knowledge document in the Parasol Knowledge repository https://github.com/rh-rad-ai-roadshow/parasol_knowledge/blob/main/Parasol_auto_insurance.md[here].
+
+image::ilab/parasol-knowledge-taxonomy-insurance.png[InstructLab taxonomy structure]
+
+- **Parasol policies**
+Here, we are adding information specific to policies in relation to the different products. This will help our claims processing agents to ask questions about specific cases and scenarios to the LLM. The LLM should be able to suggest remedies or further knowledge to look into.
+You can inspect the addtional knowledge document in the Parasol Knowledge repository https://github.com/rh-rad-ai-roadshow/parasol_knowledge/blob/main/Parasol_auto_insurance.md[here].
+
+image::ilab/parasol-knowledge-taxonomy-products.png[InstructLab taxonomy structure]
+
+=== 3.1. Synthetic data generatio
+=== 3.2. Training the Model
+=== 3.3. Interacting with the Model
